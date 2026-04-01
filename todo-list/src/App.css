@@ -1,6 +1,6 @@
 .app {
   padding: 30px;
-  display: flex;
+  /* display: flex; */
 }
 
 .app > div {
