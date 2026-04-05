@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {HW1} from '../components/HW1'
 
 function App() {
