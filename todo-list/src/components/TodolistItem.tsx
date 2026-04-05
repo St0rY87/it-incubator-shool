@@ -1,6 +1,6 @@
+import { useState } from "react";
 import type { Task } from "../App";
 import { Button } from "./button/Button";
-
 
 type Props = {
   title: string;
@@ -8,13 +8,15 @@ type Props = {
   date?: string;
 };
 
+
+
 export const TodolistItem = ({ title, tasks, date }: Props) => {
   return (
     <>
       <h3>{title}</h3>
       <div>
         <input />
-        <Button title='+'/>
+        <Button title="+" />
       </div>
       {tasks.length === 0 ? (
         <p>Тасок нет</p>
@@ -31,11 +33,14 @@ export const TodolistItem = ({ title, tasks, date }: Props) => {
         </ul>
       )}
       <div>
-        <Button title='All' />
-        <Button title='Active' />
-        <Button title='Completed' />
+        <Button title="All" />
+        <Button title="Active" />
+        <Button onClick={() => console.log("Hello")} title="Completed" />
       </div>
       <div>{date}</div>
     </>
   );
 };
+
+
+
