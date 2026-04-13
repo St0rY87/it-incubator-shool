@@ -1,4 +1,3 @@
-import type { MouseEventHandler } from "react"
 
 type Props = {
   title: string
