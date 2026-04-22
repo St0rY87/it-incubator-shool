@@ -75,10 +75,22 @@ const a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 function toReversed(array) {
+
+
+
     const result = []
+    
     for (let i = 0; i < array.length; i++) {
         result[i] = array[array.length - 1 - i]
     }
+
+    
+    
+    // for (let i = array.length; i >= 0; i--) {
+    //     result[result.length] = array[i];
+
+    // }
+
     return result
 }
 
