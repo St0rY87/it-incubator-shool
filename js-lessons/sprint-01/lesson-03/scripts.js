@@ -22,3 +22,5 @@ class Pet {
     }
 
 }
+
+const cat = new Pet('Majorka')
