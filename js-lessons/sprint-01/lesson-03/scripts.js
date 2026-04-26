@@ -73,9 +73,9 @@ const result = {
     7: 3,
 }
 
-test.reduce((acc, el) => {
-    if (acc[el] === undefined) {
-        acc[el] = 1;
+test.reduce((acc, el) => {        // acc = {}              
+    if (acc[el] === undefined) { //acc.23 ?
+        acc[el] = 1; //{...acc, acc[el]: 1}
     } else {
         acc[el] = acc[el] + 1
     }
