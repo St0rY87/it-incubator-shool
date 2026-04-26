@@ -21,36 +21,47 @@ const initialState: Task[] = [
 
 export const App = () => {
   const [tasks, setTasks] = useState(initialState);
-
-  // const [filter, setFilter] = useState<FilterValues>('all')
+  const [filter, setFilter] = useState<FilterValues>('all')
 
   const deleteTask = (taskId: Task["id"]) => {
     const updateTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updateTasks);
   };
 
-  const handleFilterTasks = (filter: FilterValues) => {
+  const getFilteredTasks = () => {
     if (filter === "active")
-      return setTasks(initialState.filter((task) => !task.isDone));
+      return tasks.filter((task) => !task.isDone);
     if (filter === "completed")
-      return setTasks(initialState.filter((task) => task.isDone));
-    return setTasks(initialState);
+      return tasks.filter((task) => task.isDone);
+    return tasks;
   };
 
-  const createTask = (title: string) => {
+    const handleFilterTasks = (newFilter: FilterValues) => {
+    setFilter(newFilter); 
+  };
+
+  const createTask = (title: Task["title"]) => {
     if (!title) return;
     const newTask = { id: v1(), title, isDone: false };
     setTasks([newTask, ...tasks]);
+  };
+
+  const changeTaskStatus = (taskId: Task["id"], isDone: Task["isDone"]) => {
+    const updatedTasks: Task[] = tasks.map((task) =>
+      task.id === taskId ? { ...task, isDone } : task,
+    );
+    setTasks(updatedTasks);
   };
 
   return (
     <div className="app">
       <Todolist
         title="What to learn"
-        tasks={tasks}
+        tasks={getFilteredTasks()}
         deleteTask={deleteTask}
         createTask={createTask}
         handleFilterTasks={handleFilterTasks}
+        changeTaskStatus={changeTaskStatus}
       />
     </div>
   );

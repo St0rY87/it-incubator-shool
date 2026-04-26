@@ -6,9 +6,11 @@ type Props = {
   title: string;
   tasks: Task[];
   date?: string;
+
   deleteTask: (taskId: Task["id"]) => void;
+  createTask: (title: Task["title"]) => void;
   handleFilterTasks: (filter: FilterValues) => void;
-  createTask: (title: string) => void;
+  changeTaskStatus: (taskId: Task["id"], isDone: Task["isDone"]) => void;
 };
 
 export const Todolist = ({
@@ -17,22 +19,24 @@ export const Todolist = ({
   deleteTask,
   handleFilterTasks,
   createTask,
+  changeTaskStatus,
 }: Props) => {
   // const [isDone, setIsDone] = useState(false);
+
   const [valueInput, setValueInput] = useState("");
 
-  const handleAddTask = () => {
+  const handleCreateTask = () => {
     createTask(valueInput);
     setValueInput("");
   };
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.target.value)
-  }
+    setValueInput(e.target.value);
+  };
 
   const handleCreateTaskOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-     e.key === 'Enter' && handleAddTask()
-  }
+    e.key === "Enter" && handleCreateTask();
+  };
 
   return (
     <>
@@ -43,16 +47,26 @@ export const Todolist = ({
           onChange={handleChangeTitle}
           onKeyDown={handleCreateTaskOnEnter}
         />
-        <Button onClick={handleAddTask} title="+" />
+        <Button onClick={handleCreateTask} title="+" />
       </div>
       {tasks.length === 0 ? (
         <p>Тасок нет</p>
       ) : (
         <ul>
           {tasks.map((task) => {
+            //    const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
+            //     changeTaskStatus(task.id, e.currentTarget.checked)
+            // }
             return (
               <li key={task.id}>
-                <input type="checkbox" checked={task.isDone} />
+                <input
+                  type="checkbox"
+                  checked={task.isDone}
+                  onChange={(e) =>
+                    changeTaskStatus(task.id, e.currentTarget.checked)
+                  }
+                  // onChange={handleChecked}
+                />
 
                 <span>{task.title}</span>
                 <button onClick={() => deleteTask(task.id)}>X</button>
