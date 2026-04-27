@@ -42,7 +42,8 @@ export const App = () => {
 
   const createTask = (title: Task["title"]) => {
     if (!title) return;
-    const newTask = { id: v1(), title, isDone: false };
+    const trimmedTitle = title.trim();
+    const newTask = { id: v1(), title: trimmedTitle, isDone: false };
     setTasks([newTask, ...tasks]);
   };
 
@@ -62,6 +63,7 @@ export const App = () => {
         createTask={createTask}
         handleFilterTasks={handleFilterTasks}
         changeTaskStatus={changeTaskStatus}
+        filter={filter}
       />
     </div>
   );
