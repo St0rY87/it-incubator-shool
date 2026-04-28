@@ -23,6 +23,7 @@ p {
 
 .active-filter {
   background-color: lightgreen;
+  border: 2px solid lightgreen;
 }
 
 .is-done {

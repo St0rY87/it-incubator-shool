@@ -41,9 +41,7 @@ export const App = () => {
   };
 
   const createTask = (title: Task["title"]) => {
-    if (!title) return;
-    const trimmedTitle = title.trim();
-    const newTask = { id: v1(), title: trimmedTitle, isDone: false };
+    const newTask = { id: v1(), title, isDone: false };
     setTasks([newTask, ...tasks]);
   };
 
