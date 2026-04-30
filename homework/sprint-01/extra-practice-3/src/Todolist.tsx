@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, ReactPortal, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, ReactNode, ReactPortal, useRef, useState } from "react";
 import { FilterValuesType } from "./App";
 
 type TaskType = {
@@ -13,7 +13,7 @@ type PropsType = {
   removeTask: (taskId: string) => void;
   changeFilter: (value: FilterValuesType) => void;
   addTask: (title: string) => void;
-  children: ReactPortal;
+  children: ReactNode;
 };
 
 export const Todolist = (props: PropsType) => {
