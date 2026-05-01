@@ -41,7 +41,7 @@ export const App = () => {
   };
 
   const createTask = (title: Task["title"]) => {
-    const newTask = { id: v1(), title, isDone: false };
+const newTask = { id: v1(), title, isDone: false };
     setTasks([newTask, ...tasks]);
   };
 

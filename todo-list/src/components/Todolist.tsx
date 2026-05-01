@@ -33,7 +33,6 @@ export const Todolist = ({
       setValueInput('');
       return;
     }
-
     createTask(trimmedTitle);
     setValueInput("");
   };

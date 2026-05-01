@@ -1,0 +1,52 @@
+.App {
+  padding: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maxValue {
+  color: red;
+}
+
+.counter {
+  border: 5px solid rgb(248, 142, 123);
+  padding: 30px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.value {
+  padding: 20px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  background-color: rgb(248, 142, 123);
+  border-radius: 5px;
+}
+
+.buttons {
+  margin-top: 20px;
+  border: 3px solid rgb(248, 142, 123);
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  display: inline-block;
+  width: 80px;
+  background-color: transparent;
+  border: none;
+  background-color: rgb(40, 184, 227);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
