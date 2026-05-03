@@ -21,7 +21,7 @@ const initialState: Task[] = [
 
 export const App = () => {
   const [tasks, setTasks] = useState(initialState);
-  const [filter, setFilter] = useState<FilterValues>('all')
+  const [filter, setFilter] = useState<FilterValues>("all");
 
   const deleteTask = (taskId: Task["id"]) => {
     const updateTasks = tasks.filter((task) => task.id !== taskId);
@@ -29,19 +29,22 @@ export const App = () => {
   };
 
   const getFilteredTasks = () => {
-    if (filter === "active")
-      return tasks.filter((task) => !task.isDone);
-    if (filter === "completed")
-      return tasks.filter((task) => task.isDone);
-    return tasks;
+    switch (filter) {
+      case "active":
+        return tasks.filter((task) => !task.isDone);
+      case "completed":
+        return tasks.filter((task) => task.isDone);
+      default:
+        return tasks;
+    }
   };
 
-    const handleFilterTasks = (newFilter: FilterValues) => {
-    setFilter(newFilter); 
+  const handleFilterTasks = (newFilter: FilterValues) => {
+    setFilter(newFilter);
   };
 
   const createTask = (title: Task["title"]) => {
-const newTask = { id: v1(), title, isDone: false };
+    const newTask = { id: v1(), title, isDone: false };
     setTasks([newTask, ...tasks]);
   };
 
