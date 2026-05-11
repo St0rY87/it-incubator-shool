@@ -4,15 +4,14 @@ import { Button } from "./button/Button";
 
 type Props = {
   todolist: TodoListType;
-  // title: string;
   tasks: Task[];
   date?: string;
-  // filter: FilterValues;
 
-  deleteTask: (taskId: Task["id"]) => void;
-  createTask: (title: Task["title"]) => void;
+  deleteTask: (id: string, taskId: Task["id"]) => void;
+  createTask: (id: string, title: Task["title"]) => void;
   handleFilterTasks: (todolistId: string, newFilter: FilterValues) => void;
-  changeTaskStatus: (taskId: Task["id"], isDone: Task["isDone"]) => void;
+  changeTaskStatus: (todolistId: string, taskId: Task["id"], isDone: Task["isDone"]) => void;
+  deleteTodolist: (todolistId: string) => void;
 };
 
 export const Todolist = ({
@@ -22,9 +21,14 @@ export const Todolist = ({
   handleFilterTasks,
   createTask,
   changeTaskStatus,
+  deleteTodolist,
 }: Props) => {
   const [valueInput, setValueInput] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+ const handleTodoList = () => {
+    deleteTodolist(id)
+  }
 
   const handleCreateTask = () => {
     const trimmedTitle = valueInput.trim();
@@ -33,7 +37,7 @@ export const Todolist = ({
       setValueInput("");
       return;
     }
-    createTask(trimmedTitle);
+    createTask(id, trimmedTitle);
     setValueInput("");
   };
 
@@ -46,8 +50,8 @@ export const Todolist = ({
     e.key === "Enter" && handleCreateTask();
   };
 
-  const handleTaskStatus = (TaskId: Task["id"], isDone: boolean) => {
-    changeTaskStatus(TaskId, isDone);
+  const handleTaskStatus = (id: string, TaskId: Task["id"], isDone: boolean) => {
+    changeTaskStatus(id, TaskId, isDone);
   };
 
   const changeFilterHandler = (filter: FilterValues) => {
@@ -61,7 +65,11 @@ export const Todolist = ({
   return (
     <>
       <div>
+        <div className="container">
         <h3>{title}</h3>
+        <Button title={'x'} onClick={handleTodoList}/>
+        </div>
+
         <div>
           <input
             className={error ? "error" : ""}
@@ -79,26 +87,19 @@ export const Todolist = ({
         ) : (
           <ul>
             {tasks.map((task) => {
-              //    const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-              //     changeTaskStatus(task.id, e.currentTarget.checked)
-              // }
               return (
                 <li key={task.id}>
                   <input
                     type="checkbox"
                     checked={task.isDone}
-                    // onChange={(e) =>
-                    //   changeTaskStatus(task.id, e.currentTarget.checked)
-                    // }
                     onChange={(e) =>
-                      handleTaskStatus(task.id, e.currentTarget.checked)
+                      handleTaskStatus(id,task.id, e.currentTarget.checked)
                     }
                   />
-
                   <span className={task.isDone ? "is-done" : ""}>
                     {task.title}
                   </span>
-                  <button onClick={() => deleteTask(task.id)}>X</button>
+                  <button onClick={() => deleteTask(id, task.id)}>X</button>
                 </li>
               );
             })}

@@ -30,3 +30,10 @@ p {
   opacity: 0.5;
   text-decoration: line-through;
 }
+
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
