@@ -7,8 +7,8 @@ type Props = {
   tasks: Task[];
   date?: string;
 
-  deleteTask: (id: string, taskId: Task["id"]) => void;
-  createTask: (id: string, title: Task["title"]) => void;
+  deleteTask: (todolistId: string, taskId: Task["id"]) => void;
+  createTask: (todolistId: string, title: Task["title"]) => void;
   handleFilterTasks: (todolistId: string, newFilter: FilterValues) => void;
   changeTaskStatus: (todolistId: string, taskId: Task["id"], isDone: Task["isDone"]) => void;
   deleteTodolist: (todolistId: string) => void;
