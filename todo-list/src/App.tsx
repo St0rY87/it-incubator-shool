@@ -140,6 +140,19 @@ export const App = () => {
     setTasks(newTasks);
   };
 
+  const getFilteredTasks = (tasks: Task[], filter: FilterValues) => {
+    let filteredTasks = tasks;
+
+    if (filter === "active") {
+      return (filteredTasks = tasks.filter((task) => !task.isDone));
+    }
+    if (filter === "completed") {
+      return (filteredTasks = tasks.filter((task) => task.isDone));
+    }
+    return filteredTasks;
+  };
+
+
   return (
     <div className="app">
       {todolists.map((todolist) => {
