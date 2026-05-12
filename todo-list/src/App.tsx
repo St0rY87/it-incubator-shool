@@ -57,6 +57,8 @@ export const App = () => {
   //   { id: v1(), title: "What to buy", filter: "all" },
   // ]);
 
+
+  
   // const deleteTask = (taskId: Task["id"]) => {
   //   const updateTasks = tasks.filter((task) => task.id !== taskId);
   //   setTasks(updateTasks);
@@ -131,6 +133,18 @@ export const App = () => {
     };
     setTasks(newTasks);
   };
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="app">
