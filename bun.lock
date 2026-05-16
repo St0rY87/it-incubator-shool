@@ -4,11 +4,16 @@
     "": {
       "dependencies": {
         "": ".",
+        "": ".",
       },
     },
   },
   "packages": {
     "": ["@file:", { "dependencies": { "": "." } }],
+
+    "": ["@file:", { "dependencies": { "": "." } }],
+
+    "/": ["@file:.", {}],
 
     "/": ["@file:.", {}],
   }

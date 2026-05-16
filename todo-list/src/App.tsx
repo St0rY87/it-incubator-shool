@@ -30,13 +30,20 @@ export type TodoListType = {
 //   { id: v1(), title: "RTK query", isDone: false },
 // ];
 
+  // const [tasks, setTasks] = useState(initialState);
+  // // const [filter, setFilter] = useState<FilterValues>("all");
+  // const [todolists, setTodolists] = useState<TodoListType[]>([
+  //   { id: v1(), title: "What to learn", filter: "all" },
+  //   { id: v1(), title: "What to buy", filter: "all" },
+  // ]);
+
 export const App = () => {
   const todolistId1 = v1();
   const todolistId2 = v1();
 
   const [todolists, setTodolists] = useState<TodoListType[]>([
     { id: todolistId1, title: "What to learn", filter: "all" },
-    { id: todolistId2, title: "What to buy", filter: "all" },
+    { id: todolistId2, title: "What to buy", filter: "active" },
   ]);
 
   const [tasks, setTasks] = useState<Tasks>({
@@ -51,12 +58,7 @@ export const App = () => {
     ],
   });
 
-  // const [tasks, setTasks] = useState(initialState);
-  // // const [filter, setFilter] = useState<FilterValues>("all");
-  // const [todolists, setTodolists] = useState<TodoListType[]>([
-  //   { id: v1(), title: "What to learn", filter: "all" },
-  //   { id: v1(), title: "What to buy", filter: "all" },
-  // ]);
+
 
 
   
@@ -91,27 +93,6 @@ export const App = () => {
     );
   };
 
-  // const createTask = (title: Task["title"]) => {
-  //   const newTask = { id: v1(), title, isDone: false };
-  //   setTasks([newTask, ...tasks]);
-  // };
-
-  // const createTask = (todolistId: string, title: string) => {
-  //   /** Формируем новую таску: */
-  //   const newTask = {id: v1(), title, isDone: false}
-  //   /** Берем таски тудулиста по его `id`: */
-  //   const todolistTasks = tasks[todolistId]
-  //   /** Перезаписываем массив тасок нужного тудулиста, добавляя в начало новую таску: */
-  //   tasks[todolistId] = [newTask, ...todolistTasks]
-  //   /** Устанавливаем в state копию объекта, чтобы React отреагировал перерисовкой: */
-  //   setTasks({ ...tasks })
-  // }
-
-  // const createTask = (todolistId: string, title: string) => {
-  //   const newTask = {id: v1(), title, isDone: false}
-  //   const newTasks = { ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] }
-  //   setTasks(newTasks)
-  // }
 
   const createTask = (todolistId: string, title: string) => {
     const newTask = { id: v1(), title, isDone: false };
@@ -119,12 +100,6 @@ export const App = () => {
     setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] });
   };
 
-  // const changeTaskStatus = (taskId: Task["id"], isDone: Task["isDone"]) => {
-  //   const updatedTasks: Task[] = tasks.map((task) =>
-  //     task.id === taskId ? { ...task, isDone } : task,
-  //   );
-  //   setTasks(updatedTasks);
-  // };
 
   const changeTaskStatus = (
     todolistId: string,
