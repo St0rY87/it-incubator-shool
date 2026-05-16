@@ -58,9 +58,6 @@ export const Todolist = ({
     handleFilterTasks(id, filter);
   };
 
-  //    const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-  //     changeTaskStatus(task.id, e.currentTarget.checked)
-  // }
 
   return (
     <>
