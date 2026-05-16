@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/it-incubator-shool/sprint-02/hw-01/static/css/main.e63dcea0.css",
-    "main.js": "/it-incubator-shool/sprint-02/hw-01/static/js/main.fb7c63c4.js",
-    "static/js/787.66cb4309.chunk.js": "/it-incubator-shool/sprint-02/hw-01/static/js/787.66cb4309.chunk.js",
-    "static/media/avatar.png": "/it-incubator-shool/sprint-02/hw-01/static/media/avatar.d947cb9d0d13765666b6.png",
-    "index.html": "/it-incubator-shool/sprint-02/hw-01/index.html",
-    "main.e63dcea0.css.map": "/it-incubator-shool/sprint-02/hw-01/static/css/main.e63dcea0.css.map",
-    "main.fb7c63c4.js.map": "/it-incubator-shool/sprint-02/hw-01/static/js/main.fb7c63c4.js.map",
-    "787.66cb4309.chunk.js.map": "/it-incubator-shool/sprint-02/hw-01/static/js/787.66cb4309.chunk.js.map"
+    "main.css": "/it-incubator-shool/static/css/main.e63dcea0.css",
+    "main.js": "/it-incubator-shool/static/js/main.d91be0d5.js",
+    "static/js/787.66cb4309.chunk.js": "/it-incubator-shool/static/js/787.66cb4309.chunk.js",
+    "static/media/avatar.png": "/it-incubator-shool/static/media/avatar.d947cb9d0d13765666b6.png",
+    "index.html": "/it-incubator-shool/index.html",
+    "main.e63dcea0.css.map": "/it-incubator-shool/static/css/main.e63dcea0.css.map",
+    "main.d91be0d5.js.map": "/it-incubator-shool/static/js/main.d91be0d5.js.map",
+    "787.66cb4309.chunk.js.map": "/it-incubator-shool/static/js/787.66cb4309.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e63dcea0.css",
-    "static/js/main.fb7c63c4.js"
+    "static/js/main.d91be0d5.js"
   ]
 }
