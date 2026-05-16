@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/hws2/static/css/main.e63dcea0.css",
-    "main.js": "/hws2/static/js/main.b220b05b.js",
-    "static/js/787.66cb4309.chunk.js": "/hws2/static/js/787.66cb4309.chunk.js",
-    "static/media/avatar.png": "/hws2/static/media/avatar.d947cb9d0d13765666b6.png",
-    "index.html": "/hws2/index.html",
-    "main.e63dcea0.css.map": "/hws2/static/css/main.e63dcea0.css.map",
-    "main.b220b05b.js.map": "/hws2/static/js/main.b220b05b.js.map",
-    "787.66cb4309.chunk.js.map": "/hws2/static/js/787.66cb4309.chunk.js.map"
+    "main.css": "/it-incubator-shool/sprint-02/hw-01/static/css/main.e63dcea0.css",
+    "main.js": "/it-incubator-shool/sprint-02/hw-01/static/js/main.fb7c63c4.js",
+    "static/js/787.66cb4309.chunk.js": "/it-incubator-shool/sprint-02/hw-01/static/js/787.66cb4309.chunk.js",
+    "static/media/avatar.png": "/it-incubator-shool/sprint-02/hw-01/static/media/avatar.d947cb9d0d13765666b6.png",
+    "index.html": "/it-incubator-shool/sprint-02/hw-01/index.html",
+    "main.e63dcea0.css.map": "/it-incubator-shool/sprint-02/hw-01/static/css/main.e63dcea0.css.map",
+    "main.fb7c63c4.js.map": "/it-incubator-shool/sprint-02/hw-01/static/js/main.fb7c63c4.js.map",
+    "787.66cb4309.chunk.js.map": "/it-incubator-shool/sprint-02/hw-01/static/js/787.66cb4309.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e63dcea0.css",
-    "static/js/main.b220b05b.js"
+    "static/js/main.fb7c63c4.js"
   ]
 }
