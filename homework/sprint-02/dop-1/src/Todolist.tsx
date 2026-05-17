@@ -1,5 +1,6 @@
 import {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
+import type { TasksType } from './App';
 
 export type TaskType = {
     id: string
@@ -10,7 +11,7 @@ export type TaskType = {
 type PropsType = {
     todolistId: string
     title: string
-    tasks: Array<TaskType>
+    tasks: TasksType
     removeTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
     addTask: (todolistId: string, title: string) => void
@@ -20,7 +21,6 @@ type PropsType = {
 }
 
 export const Todolist = (props: PropsType)=> {
-
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
@@ -52,6 +52,18 @@ export const Todolist = (props: PropsType)=> {
         props.removeTodolist(props.todolistId)
     }
 
+    const currentTasks = props.tasks[props.todolistId];
+    let tasksForTodolist = currentTasks.data;
+
+        if (currentTasks.filter === "active") {
+          tasksForTodolist = currentTasks.data.filter(
+            (t: TaskType) => t.isDone === false,
+          );
+        }
+        if (currentTasks.filter === "completed") {
+          tasksForTodolist = currentTasks.data.filter((t:TaskType) => t.isDone === true);
+        }
+
     return <div>
         <h3>
             {props.title}
@@ -69,7 +81,7 @@ export const Todolist = (props: PropsType)=> {
         </div>
         <ul>
             {
-                props.tasks.map(t => {
+                tasksForTodolist.map((t: TaskType) => {
                     const onClickHandler = () => props.removeTask(props.todolistId, t.id)
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         props.changeTaskStatus(props.todolistId, t.id, e.currentTarget.checked);
