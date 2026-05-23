@@ -1,18 +1,20 @@
 .App {
   padding: 150px;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 40px;
+  background-color: #ffffff;
 }
 
 .maxValue {
   color: red;
 }
 
-.counter {
+.wrapper {
   border: 5px solid rgb(248, 142, 123);
   padding: 30px;
-  width: 200px;
+  max-width: 400px;
   border-radius: 5px;
 }
 
@@ -25,13 +27,14 @@
   border-radius: 5px;
 }
 
-.buttons {
+.wrapperButtons {
   margin-top: 20px;
   border: 3px solid rgb(248, 142, 123);
   padding: 10px;
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 }
 
 .button {
@@ -49,4 +52,34 @@
 
 .button:disabled {
   cursor: not-allowed;
+}
+
+
+.inputs {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid rgb(248, 142, 123);
+  border-radius: 5px;
+}
+
+.input {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.input label {
+    text-wrap: nowrap;
+    color: rgb(248, 142, 123);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+input {
+  max-width: 100px;
+  color: rgb(248, 142, 123);
+  border: 2px solid rgb(248, 142, 123);
+  border-radius: 5px;
 }

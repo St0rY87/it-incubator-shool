@@ -20,10 +20,10 @@ export const Counter = ({
   const valueClassName = `value${value >= maxValue ? " maxValue" : ""}`;
 
   return (
-    <div className="counter">
+    <div className="wrapper">
       <Display className={valueClassName} value={value} />
 
-      <div className="buttons">
+      <div className="wrapperButtons">
         <Button disabled={value >= maxValue} onClick={onIncrement}>
           inc
         </Button>
