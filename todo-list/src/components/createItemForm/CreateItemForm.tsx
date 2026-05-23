@@ -21,11 +21,11 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
   };
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.target.value);
+    setValueInput(e.currentTarget.value);
     setError(null);
   };
 
-  const handleCreateTaskOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleCreateItemOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     e.key === "Enter" && handleCreateItem();
   };
 
@@ -35,7 +35,7 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
         className={error ? "error" : ""}
         value={valueInput}
         onChange={handleChangeTitle}
-        onKeyDown={handleCreateTaskOnEnter}
+        onKeyDown={handleCreateItemOnEnter}
       />
 
       <Button onClick={handleCreateItem} title="+" />
