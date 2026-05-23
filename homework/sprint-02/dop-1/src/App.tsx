@@ -4,8 +4,7 @@ import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
 
 export type FilterValuesType = "all" | "active" | "completed";
-type TodolistType = { id: string; title: string };
-
+export type TodolistType = { id: string; title: string};
 
 export type TasksType = {
   [key: string]: {
@@ -15,7 +14,6 @@ export type TasksType = {
 };
 
 export const App = () => {
-
   let todolistId1 = v1();
   let todolistId2 = v1();
 
@@ -41,14 +39,12 @@ export const App = () => {
     },
   });
 
-
-
-  const removeTodolist = (todolistId: string) => {
+  function removeTodolist(todolistId: TodolistType["id"]) {
     setTodolists(todolists.filter((el) => el.id !== todolistId));
     delete tasks[todolistId];
-  };
+  }
 
-  function removeTask(todolistId: string, taskId: string) {
+  function removeTask(todolistId: TodolistType["id"], taskId: TaskType["id"]) {
     const currentData = tasks[todolistId];
     const currentTasks = tasks[todolistId].data;
     const updatedData = {
@@ -61,7 +57,7 @@ export const App = () => {
     setTasks(updatedData);
   }
 
-  function addTask(todolistId: string, title: string) {
+  function addTask(todolistId: TodolistType["id"], title: TaskType["title"]) {
     let newTask: TaskType = { id: v1(), title, isDone: false };
     const currentData = tasks[todolistId];
     const currentTasks = tasks[todolistId].data;
@@ -77,7 +73,6 @@ export const App = () => {
     taskId: string,
     newIsDone: boolean,
   ) {
-
     const currentData = tasks[todolistId];
     const currentTasks = tasks[todolistId].data;
     const updatedTasks = {
@@ -92,7 +87,10 @@ export const App = () => {
     setTasks(updatedTasks);
   }
 
-  function changeFilter(todolistId: string, value: FilterValuesType) {
+  function changeFilter(
+    todolistId: TodolistType["id"],
+    value: FilterValuesType,
+  ) {
     const currentData = tasks[todolistId];
     const updatedFilter = {
       ...tasks,
@@ -100,6 +98,16 @@ export const App = () => {
     };
     setTasks(updatedFilter);
   }
+
+  function addTodolist(title: TodolistType["title"]) {
+    const newTodo: TodolistType = {
+      id: v1(),
+      title,
+    };
+    setTodolists([...todolists, ]);
+  }
+
+  //   addTodoList("new TodoLIst");
 
   return (
     <div className="App">

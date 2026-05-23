@@ -1,17 +1,25 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
-import type { FilterValues, Task, TodoListType } from "../App";
+import type { FilterValues, Task, TodolistType } from "../App";
 import { Button } from "./button/Button";
+import { CreateItemForm } from "./createItemForm/CreateItemForm";
 
 type Props = {
-  todolist: TodoListType;
+  todolist: TodolistType;
   tasks: Task[];
   date?: string;
 
-  deleteTask: (todolistId: string, taskId: Task["id"]) => void;
-  createTask: (todolistId: string, title: Task["title"]) => void;
-  handleFilterTasks: (todolistId: string, newFilter: FilterValues) => void;
-  changeTaskStatus: (todolistId: string, taskId: Task["id"], isDone: Task["isDone"]) => void;
-  deleteTodolist: (todolistId: string) => void;
+  deleteTask: (todolistId: TodolistType["id"], taskId: Task["id"]) => void;
+  createTask: (todolistId: TodolistType["id"], title: Task["title"]) => void;
+  handleFilterTasks: (
+    todolistId: TodolistType["id"],
+    newFilter: FilterValues,
+  ) => void;
+  changeTaskStatus: (
+    todolistId: TodolistType["id"],
+    taskId: Task["id"],
+    isDone: Task["isDone"],
+  ) => void;
+  deleteTodolist: (todolistId: TodolistType["id"]) => void;
 };
 
 export const Todolist = ({
@@ -23,34 +31,14 @@ export const Todolist = ({
   changeTaskStatus,
   deleteTodolist,
 }: Props) => {
-  const [valueInput, setValueInput] = useState("");
-  const [error, setError] = useState<string | null>(null);
-
- const handleTodoList = () => {
-    deleteTodolist(id)
-  }
-
-  const handleCreateTask = () => {
-    const trimmedTitle = valueInput.trim();
-    if (!trimmedTitle) {
-      setError("This field required");
-      setValueInput("");
-      return;
-    }
-    createTask(id, trimmedTitle);
-    setValueInput("");
+  const handleTodoList = () => {
+    deleteTodolist(id);
   };
-
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.target.value);
-    setError(null);
-  };
-
-  const handleCreateTaskOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.key === "Enter" && handleCreateTask();
-  };
-
-  const handleTaskStatus = (id: string, TaskId: Task["id"], isDone: boolean) => {
+  const handleTaskStatus = (
+    id: string,
+    TaskId: Task["id"],
+    isDone: boolean,
+  ) => {
     changeTaskStatus(id, TaskId, isDone);
   };
 
@@ -58,27 +46,19 @@ export const Todolist = ({
     handleFilterTasks(id, filter);
   };
 
+  const handleCreateTask = (title: string) => {
+    createTask(id, title);
+  };
 
   return (
     <>
       <div>
         <div className="container">
-        <h3>{title}</h3>
-        <Button title={'x'} onClick={handleTodoList}/>
+          <h3>{title}</h3>
+          <Button title={"x"} onClick={handleTodoList} />
         </div>
+        <CreateItemForm onCreateItem={handleCreateTask} />
 
-        <div>
-          <input
-            className={error ? "error" : ""}
-            value={valueInput}
-            onChange={handleChangeTitle}
-            onKeyDown={handleCreateTaskOnEnter}
-          />
-
-          <Button onClick={handleCreateTask} title="+" />
-
-          {error ? <p className="error-message">{error}</p> : ""}
-        </div>
         {tasks.length === 0 ? (
           <p>Тасок нет</p>
         ) : (
@@ -90,7 +70,7 @@ export const Todolist = ({
                     type="checkbox"
                     checked={task.isDone}
                     onChange={(e) =>
-                      handleTaskStatus(id,task.id, e.currentTarget.checked)
+                      handleTaskStatus(id, task.id, e.currentTarget.checked)
                     }
                   />
                   <span className={task.isDone ? "is-done" : ""}>
@@ -123,7 +103,3 @@ export const Todolist = ({
     </>
   );
 };
-
-
-
-

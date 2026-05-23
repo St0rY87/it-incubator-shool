@@ -1,6 +1,6 @@
 import {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
-import type { TasksType } from './App';
+import type { TasksType, TodolistType } from './App';
 
 export type TaskType = {
     id: string
@@ -12,12 +12,12 @@ type PropsType = {
     todolistId: string
     title: string
     tasks: TasksType
-    removeTask: (todolistId: string, taskId: string) => void
-    changeFilter: (todolistId: string, value: FilterValuesType) => void
-    addTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    removeTask: (todolistId: TodolistType['id'], taskId: TaskType['id']) => void
+    changeFilter: (todolistId: TodolistType['id'], value: FilterValuesType) => void
+    addTask: (todolistId: TodolistType['id'], title: TaskType['title']) => void
+    changeTaskStatus: (todolistId: TodolistType['id'], taskId: TaskType['id'], isDone: TaskType['isDone']) => void
     filter: FilterValuesType
-    removeTodolist: (todolistId: string) => void
+    removeTodolist: (todolistId: TodolistType['id']) => void
 }
 
 export const Todolist = (props: PropsType)=> {
