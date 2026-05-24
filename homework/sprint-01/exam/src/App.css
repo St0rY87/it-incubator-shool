@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   padding: 150px;
   display: flex;
@@ -16,15 +20,29 @@
   padding: 30px;
   max-width: 400px;
   border-radius: 5px;
+  width: 370px;
 }
 
 .value {
   padding: 20px;
-  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 50px;
   font-weight: 700;
   background-color: rgb(248, 142, 123);
   border-radius: 5px;
+  min-height: 110px;
+}
+
+.message {
+  font-size: 18px;
+}
+
+.message.error {
+  color: rgba(255, 0, 0, 0.802);
 }
 
 .wrapperButtons {
@@ -54,7 +72,6 @@
   cursor: not-allowed;
 }
 
-
 .inputs {
   padding: 10px;
   display: flex;
@@ -62,19 +79,27 @@
   gap: 10px;
   border: 2px solid rgb(248, 142, 123);
   border-radius: 5px;
+  min-height: 80px;
 }
 
 .input {
   display: flex;
   gap: 40px;
   justify-content: space-between;
+  text-align: center;
+}
+
+input.error {
+  background-color: rgba(255, 0, 0, 0.802);
+  background-color: 2px solid rgba(255, 0, 0, 0.802);
+  color: #fff;
 }
 
 .input label {
-    text-wrap: nowrap;
-    color: rgb(248, 142, 123);
-    font-size: 20px;
-    font-weight: 500;
+  text-wrap: nowrap;
+  color: rgb(248, 142, 123);
+  font-size: 20px;
+  font-weight: 500;
 }
 
 input {
@@ -82,4 +107,5 @@ input {
   color: rgb(248, 142, 123);
   border: 2px solid rgb(248, 142, 123);
   border-radius: 5px;
+  text-align: center;
 }
