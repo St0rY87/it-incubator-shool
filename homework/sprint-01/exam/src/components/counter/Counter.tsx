@@ -21,13 +21,19 @@ export const Counter = ({
   isError,
 }: Props) => {
   const valueClassName = `value${value >= maxValue ? " maxValue" : ""}`;
-  const messageClassName = `value message${isFocus && isError ? " error" : ""}`;
+  const errorClassName = "value message error";
+  const hintClassName = "value message";
+
+  const currentClassName = isError
+    ? errorClassName
+    : !isError && !isFocus
+      ? valueClassName
+      : hintClassName;
 
   return (
     <div className="wrapper">
-      {/* <Display className={valueClassName} value={value} /> */}
       <Display
-        className={isFocus ? messageClassName : valueClassName}
+        className={currentClassName}
         value={value}
         isFocus={isFocus}
         isError={isError}
@@ -38,6 +44,7 @@ export const Counter = ({
           disabled={value >= maxValue}
           isFocus={isFocus}
           onClick={onIncrement}
+          isError={isError}
         >
           inc
         </Button>
@@ -46,6 +53,7 @@ export const Counter = ({
           disabled={value === minValue}
           isFocus={isFocus}
           onClick={onReset}
+          isError={isError}
         >
           reset
         </Button>

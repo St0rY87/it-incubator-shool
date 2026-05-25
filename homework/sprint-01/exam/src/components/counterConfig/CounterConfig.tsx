@@ -10,7 +10,10 @@ type Props = {
   isError: boolean;
   onFocus: () => void;
   offFocus: () => void;
+  isFocus: boolean;
 };
+
+
 
 export const CounterConfig = ({
   handleMinValue,
@@ -20,8 +23,10 @@ export const CounterConfig = ({
   handleSetButton,
   isError,
   onFocus,
-  offFocus
+  offFocus,
+  isFocus
 }: Props) => {
+  const isDisabledButton = !isFocus && !isError || isError;
   return (
     <div className="wrapper">
       <div className="inputs">
@@ -41,7 +46,7 @@ export const CounterConfig = ({
         />
       </div>
       <div className="wrapperButtons">
-        <Button disabled={isError} onClick={handleSetButton} >
+        <Button disabled={isDisabledButton} onClick={handleSetButton} >
           Set
         </Button>
       </div>

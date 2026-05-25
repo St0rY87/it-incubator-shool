@@ -4,7 +4,7 @@ import { Counter } from "./components/counter/Counter";
 import { CounterConfig } from "./components/counterConfig/CounterConfig";
 
 export const App = () => {
-  console.log('hello')
+  console.log("hello");
   const initialMaxValue = 5;
   const initialMinValue = 0;
 
@@ -21,15 +21,12 @@ export const App = () => {
 
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
-
-
   useEffect(() => {
     const isError: boolean =
       minValue === maxValue ||
       maxValue < minValue ||
       minValue < 0 ||
       maxValue < 1;
-   
 
     setIsError(isError);
   }, [minValue, maxValue, value]);
@@ -51,7 +48,9 @@ export const App = () => {
     setIsFocus(true);
   };
   const offFocus = () => {
-    setIsFocus(false);
+    setTimeout(() => {
+      setIsFocus(false);
+    }, 100);
   };
 
   const onIncrement = () => {
@@ -73,6 +72,7 @@ export const App = () => {
         isError={isError}
         onFocus={onFocus}
         offFocus={offFocus}
+        isFocus={isFocus}
       />
       <Counter
         value={value}

@@ -7,8 +7,8 @@ type Props = {
 
 export const Display = ({ className, value, isFocus, isError }: Props) => {
  const currentMessage = isError
-      ? "Incorrect value"
+      ? "Incorrect value!"
       : "enter values and press 'set'";
       console.log(currentMessage)
-  return <div className={className}>{isFocus ? currentMessage : value}</div>;
+  return <div className={className}>{isError || isFocus ? currentMessage : value}</div>;
 };
