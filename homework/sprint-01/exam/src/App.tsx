@@ -4,9 +4,10 @@ import { Counter } from "./components/counter/Counter";
 import { CounterConfig } from "./components/counterConfig/CounterConfig";
 
 export const App = () => {
-  console.log("hello");
-  const initialMaxValue = 5;
-  const initialMinValue = 0;
+  
+
+  let initialMaxValue = 5;
+  let initialMinValue = 0;
 
   const [maxValue, setMaxValue] = useState<number>(initialMaxValue);
   const [minValue, setMinValue] = useState<number>(initialMinValue);
@@ -22,6 +23,10 @@ export const App = () => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   useEffect(() => {
+    handleGetDataFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
     const isError: boolean =
       minValue === maxValue ||
       maxValue < minValue ||
@@ -30,6 +35,29 @@ export const App = () => {
 
     setIsError(isError);
   }, [minValue, maxValue, value]);
+
+  const handleUpdateLocalStorage = () => {
+    localStorage.setItem(
+      "counter",
+      JSON.stringify({
+        minValue,
+        maxValue,
+      }),
+    );
+  };
+
+  const handleGetDataFromLocalStorage = () => {
+    const data = localStorage.getItem("counter");
+    if (data) {
+      const { minValue, maxValue } = JSON.parse(data);
+      setMaxValue(maxValue);
+      setMinValue(minValue);
+      setValue(minValue);
+      setMaxCounterValue(maxValue);
+      setMinCounterValue(minValue);
+    }
+    return { minValue, maxValue };
+  };
 
   const handleMinValue = (value: number) => {
     setMinValue(value);
@@ -42,15 +70,18 @@ export const App = () => {
     setValue(minValue);
     setMaxCounterValue(maxValue);
     setMinCounterValue(minValue);
+    handleUpdateLocalStorage();
   };
 
   const onFocus = () => {
-    setIsFocus(true);
+    setTimeout(() => {
+      setIsFocus(true);
+    }, 111);
   };
   const offFocus = () => {
     setTimeout(() => {
       setIsFocus(false);
-    }, 100);
+    }, 110);
   };
 
   const onIncrement = () => {
