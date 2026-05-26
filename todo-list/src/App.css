@@ -1,17 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
 p {
   margin: 0;
   padding: 0;
 }
 
-
 .app {
-  padding: 30px;
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
 }
 
-.app > div {
-  margin-right: 50px;
+.container {
+  display: flex;
+  align-items: center;
 }
+
 
 .error {
   border: red 1px solid;
@@ -31,9 +38,12 @@ p {
   text-decoration: line-through;
 }
 
-
 .container {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.wrapper-input {
+  display: flex;
 }
