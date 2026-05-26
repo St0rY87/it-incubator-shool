@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavButton } from "./NavButton";
+import { containerSx } from "./Todolist.styles";
 
 export type TaskType = {
   id: string;
@@ -40,7 +41,7 @@ export const App = () => {
 
   const [todolists, setTodolists] = useState<TodolistType[]>([
     { id: todolistId1, title: "What to learn", filter: "all" },
-    { id: todolistId2, title: "What to buy", filter: "active" },
+    { id: todolistId2, title: "What to buy", filter: "all" },
   ]);
 
   const [tasks, setTasks] = useState<Tasks>({
@@ -153,11 +154,11 @@ export const App = () => {
   return (
     <div className="app">
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={containerSx}>
           <IconButton color="inherit">
             <MenuIcon />
           </IconButton>
-          <Box sx={{ marginLeft: 'auto'}}>
+          <Box >
             <NavButton color="inherit">Sign in</NavButton>
             <NavButton color="inherit">Sign up</NavButton>
             <NavButton color="inherit">FAQ</NavButton>

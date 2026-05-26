@@ -4,8 +4,6 @@ import { Counter } from "./components/counter/Counter";
 import { CounterConfig } from "./components/counterConfig/CounterConfig";
 
 export const App = () => {
-  
-
   let initialMaxValue = 5;
   let initialMinValue = 0;
 
@@ -13,13 +11,7 @@ export const App = () => {
   const [minValue, setMinValue] = useState<number>(initialMinValue);
   const [value, setValue] = useState<number>(minValue);
 
-  const [maxCounterValue, setMaxCounterValue] =
-    useState<number>(initialMaxValue);
-  const [minCounterValue, setMinCounterValue] =
-    useState<number>(initialMinValue);
-
   const [isError, setIsError] = useState(false);
-
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   useEffect(() => {
@@ -53,10 +45,7 @@ export const App = () => {
       setMaxValue(maxValue);
       setMinValue(minValue);
       setValue(minValue);
-      setMaxCounterValue(maxValue);
-      setMinCounterValue(minValue);
     }
-    return { minValue, maxValue };
   };
 
   const handleMinValue = (value: number) => {
@@ -68,9 +57,10 @@ export const App = () => {
 
   const handleSetButton = () => {
     setValue(minValue);
-    setMaxCounterValue(maxValue);
-    setMinCounterValue(minValue);
     handleUpdateLocalStorage();
+
+    setMaxValue(maxValue);
+    setMinValue(minValue);
   };
 
   const onFocus = () => {
@@ -89,7 +79,7 @@ export const App = () => {
   };
 
   const onReset = () => {
-    setValue(minCounterValue);
+    setValue(minValue);
   };
 
   return (
@@ -107,8 +97,8 @@ export const App = () => {
       />
       <Counter
         value={value}
-        maxValue={maxCounterValue}
-        minValue={minCounterValue}
+        maxValue={maxValue}
+        minValue={minValue}
         onIncrement={onIncrement}
         onReset={onReset}
         isFocus={isFocus}
