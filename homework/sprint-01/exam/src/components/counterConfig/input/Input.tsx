@@ -6,7 +6,7 @@ type Props = {
   initialValue?: number;
   isError?: boolean;
   onFocus: () => void;
-  offFocus: () => void;
+  onBlur: () => void;
 };
 
 export const Input = ({
@@ -15,7 +15,7 @@ export const Input = ({
   initialValue,
   isError,
   onFocus,
-  offFocus,
+  onBlur,
 }: Props) => {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     handleValue(Number(e.currentTarget.value));
@@ -26,7 +26,7 @@ export const Input = ({
       <label>{label}</label>
       <input
         onFocus={onFocus}
-        onBlur={offFocus}
+        onBlur={onBlur}
         className={isError ? "error" : ""}
         type="number"
         value={initialValue}

@@ -3,15 +3,15 @@ import "./App.css";
 import { Counter } from "./components/counter/Counter";
 import { CounterConfig } from "./components/counterConfig/CounterConfig";
 
-export const App = () => {
-  let initialMaxValue = 5;
-  let initialMinValue = 0;
+const initialMaxValue = 5;
+const initialMinValue = 0;
 
+export const App = () => {
   const [maxValue, setMaxValue] = useState<number>(initialMaxValue);
   const [minValue, setMinValue] = useState<number>(initialMinValue);
   const [value, setValue] = useState<number>(minValue);
 
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   useEffect(() => {
@@ -66,9 +66,9 @@ export const App = () => {
   const onFocus = () => {
     setTimeout(() => {
       setIsFocus(true);
-    }, 111);
+    }, 300);
   };
-  const offFocus = () => {
+  const onBlur = () => {
     setTimeout(() => {
       setIsFocus(false);
     }, 110);
@@ -92,7 +92,7 @@ export const App = () => {
         handleSetButton={handleSetButton}
         isError={isError}
         onFocus={onFocus}
-        offFocus={offFocus}
+        onBlur={onBlur}
         isFocus={isFocus}
       />
       <Counter
