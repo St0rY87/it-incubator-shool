@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
-import { IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import { inputSx, wrapperInputSx } from "../../Todolist.styles";
 
 type Props = {
   onCreateItem: (title: string) => void;
@@ -8,7 +9,7 @@ type Props = {
 
 export const CreateItemForm = ({ onCreateItem }: Props) => {
   const [valueInput, setValueInput] = useState("");
-  const [error, setError] = useState<string | null >(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCreateItem = () => {
     const trimmedTitle = valueInput.trim();
@@ -31,14 +32,15 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
   };
 
   return (
-    <div className="wrapper-input">
+    <Box className="wrapper-input" sx={wrapperInputSx}>
       <TextField
         size="small"
         value={valueInput}
         onChange={handleChangeTitle}
         onKeyDown={handleCreateItemOnEnter}
         error={error}
-        helperText={error && 'Enter valid title'}
+        helperText={error && "Enter valid title"}
+        sx={inputSx}
       />
 
       <IconButton size="small" onClick={handleCreateItem}>
@@ -46,6 +48,6 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
       </IconButton>
 
       {/* {error && error !== undefined ? <p className="error-message">{error}</p> : ""} */}
-    </div>
+    </Box>
   );
 };
