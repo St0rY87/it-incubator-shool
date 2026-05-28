@@ -6,10 +6,31 @@ import { CounterConfig } from "./components/counterConfig/CounterConfig";
 const initialMaxValue = 5;
 const initialMinValue = 0;
 
+function handleGetDataLocalStorage(value: "getMaxValue" | "getMinValue") {
+  const data = localStorage.getItem("counter");
+  if (data) {
+    const { minValue, maxValue } = JSON.parse(data);
+    return value === "getMinValue" ? minValue : maxValue;
+  }
+  return value === "getMinValue" ? initialMinValue : initialMaxValue;
+}
+
+const saveToLocalStorage = (minValue: number, maxValue: number) => {
+  localStorage.setItem("counter", JSON.stringify({ minValue, maxValue }));
+};
+
 export const App = () => {
-  const [maxValue, setMaxValue] = useState<number>(initialMaxValue);
-  const [minValue, setMinValue] = useState<number>(initialMinValue);
-  const [value, setValue] = useState<number>(minValue);
+  const [maxValue, setMaxValue] = useState<number>(
+    handleGetDataLocalStorage("getMaxValue"),
+  );
+
+  const [minValue, setMinValue] = useState<number>(
+    handleGetDataLocalStorage("getMinValue"),
+  );
+
+  const [value, setValue] = useState<number>(
+    handleGetDataLocalStorage("getMinValue"),
+  );
 
   const [isError, setIsError] = useState<boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
@@ -20,23 +41,10 @@ export const App = () => {
 
   useEffect(() => {
     const isError: boolean =
-      minValue === maxValue ||
-      maxValue < minValue ||
-      minValue < 0 ||
-      maxValue < 1;
+      maxValue <= minValue || minValue < 0 || maxValue < 1;
 
     setIsError(isError);
-  }, [minValue, maxValue, value]);
-
-  const handleUpdateLocalStorage = () => {
-    localStorage.setItem(
-      "counter",
-      JSON.stringify({
-        minValue,
-        maxValue,
-      }),
-    );
-  };
+  }, [minValue, maxValue]);
 
   const handleGetDataFromLocalStorage = () => {
     const data = localStorage.getItem("counter");
@@ -57,7 +65,7 @@ export const App = () => {
 
   const handleSetButton = () => {
     setValue(minValue);
-    handleUpdateLocalStorage();
+    saveToLocalStorage(minValue, maxValue);
 
     setMaxValue(maxValue);
     setMinValue(minValue);
@@ -66,7 +74,7 @@ export const App = () => {
   const onFocus = () => {
     setTimeout(() => {
       setIsFocus(true);
-    }, 300);
+    }, 111);
   };
   const onBlur = () => {
     setTimeout(() => {
