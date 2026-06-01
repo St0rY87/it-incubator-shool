@@ -24,7 +24,7 @@ type Props = {
     todolistId: TodolistType["id"],
     title: TaskType["title"],
   ) => void;
-  handleFilterTasks: (
+  changeTodolistFilter: (
     todolistId: TodolistType["id"],
     newFilter: FilterValues,
   ) => void;
@@ -51,7 +51,7 @@ export const Todolist = ({
   todolist: { id, title, filter },
   tasks,
   deleteTask,
-  handleFilterTasks,
+  changeTodolistFilter,
   createTask,
   changeTaskStatus,
   deleteTodolist,
@@ -70,7 +70,7 @@ export const Todolist = ({
   };
 
   const changeFilterHandler = (filter: FilterValues) => {
-    handleFilterTasks(id, filter);
+    changeTodolistFilter(id, filter);
   };
 
   const handleCreateTask = (title: TaskType["title"]) => {
@@ -113,7 +113,7 @@ export const Todolist = ({
 
               return (
                 <ListItem disablePadding sx={containerSx} key={task.id}>
-                  <Box sx={{display: 'flex', alignItems: 'center'}}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Checkbox
                       size="small"
                       checked={task.isDone}

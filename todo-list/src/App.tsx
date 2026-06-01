@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import "./App.css";
 import { Todolist } from "./components/Todolist";
 import { v1 } from "uuid";
@@ -21,6 +21,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { NavButton } from "./NavButton";
 import { containerSx } from "./Todolist.styles";
 import { blue, orange, pink, teal } from "@mui/material/colors";
+import {
+  changeTodolistFilterAC,
+  changeTodolistTitleAC,
+  createTodolistAC,
+  deleteTodolistAC,
+  todolistsReducer,
+} from "./model/todolistsReducer";
 
 export type TaskType = {
   id: string;
@@ -44,10 +51,20 @@ export const App = () => {
   const todolistId1 = v1();
   const todolistId2 = v1();
 
-  const [todolists, setTodolists] = useState<TodolistType[]>([
+  const initialState: TodolistType[] = [
     { id: todolistId1, title: "What to learn", filter: "all" },
     { id: todolistId2, title: "What to buy", filter: "all" },
-  ]);
+  ];
+
+  // const [todolists, setTodolists] = useState<TodolistType[]>([
+  //   { id: todolistId1, title: "What to learn", filter: "all" },
+  //   { id: todolistId2, title: "What to buy", filter: "all" },
+  // ]);
+
+  const [todolists, dispatchToTodolists] = useReducer(
+    todolistsReducer,
+    initialState,
+  );
 
   const [tasks, setTasks] = useState<Tasks>({
     [todolistId1]: [
@@ -61,6 +78,7 @@ export const App = () => {
     ],
   });
 
+  // tasks
   const deleteTask = (
     todolistId: TodolistType["id"],
     taskId: TaskType["id"],
@@ -70,25 +88,6 @@ export const App = () => {
       [todolistId]: tasks[todolistId].filter((task) => task.id !== taskId),
     });
   };
-
-  const deleteTodoList = (todolistId: TodolistType["id"]) => {
-    setTodolists(todolists.filter((todolist) => todolist.id !== todolistId));
-
-    delete tasks[todolistId];
-    setTasks({ ...tasks });
-  };
-
-  const handleFilterTasks = (
-    todolistId: TodolistType["id"],
-    filter: FilterValues,
-  ) => {
-    setTodolists(
-      todolists.map((todolist) =>
-        todolist.id === todolistId ? { ...todolist, filter } : todolist,
-      ),
-    );
-  };
-
   const createTask = (
     todolistId: TodolistType["id"],
     title: TaskType["title"],
@@ -97,7 +96,6 @@ export const App = () => {
 
     setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] });
   };
-
   const changeTaskStatus = (
     todolistId: TodolistType["id"],
     taskId: TaskType["id"],
@@ -123,15 +121,6 @@ export const App = () => {
     });
   };
 
-  function createTodolist(title: TodolistType["title"]) {
-    const newTodo: TodolistType = {
-      id: v1(),
-      title,
-      filter: "all",
-    };
-    setTodolists([...todolists, newTodo]);
-    setTasks({ ...tasks, [newTodo.id]: [] });
-  }
 
   const getFilteredTasks = (tasks: TaskType[], filter: FilterValues) => {
     let filteredTasks = tasks;
@@ -145,24 +134,39 @@ export const App = () => {
     return filteredTasks;
   };
 
+  //todolists
+  const changeTodolistFilter = (
+    todolistId: TodolistType["id"],
+    filter: FilterValues,
+  ) => {
+      dispatchToTodolists(changeTodolistFilterAC({id: todolistId, filter}))
+  };
+  const deleteTodoList = (todolistId: TodolistType["id"]) => {
+    dispatchToTodolists(deleteTodolistAC(todolistId));
+    delete tasks[todolistId];
+    setTasks({ ...tasks });
+  };
+
+  const createTodolist = (title: TodolistType["title"]) => {
+    const action = createTodolistAC(title);
+    dispatchToTodolists(action)
+    setTasks({ ...tasks, [action.payload.id]: [] });
+  };
+
   const changeTodolistTitle = (
     todolistId: TodolistType["id"],
     title: TodolistType["title"],
   ) => {
-    setTodolists(
-      todolists.map((todolist) =>
-        todolist.id === todolistId ? { ...todolist, title } : todolist,
-      ),
-    );
+    dispatchToTodolists(changeTodolistTitleAC({ id: todolistId, title }));
   };
 
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useState(false);
 
   const theme = createTheme({
     palette: {
       primary: teal,
       secondary: orange,
-      mode: isDark ? 'dark' : 'light'
+      mode: isDark ? "dark" : "light",
     },
   });
 
@@ -176,7 +180,7 @@ export const App = () => {
               <MenuIcon />
             </IconButton>
             <Box>
-              <Switch onChange={()=>setIsDark(!isDark)}/>
+              <Switch onChange={() => setIsDark(!isDark)} />
               <NavButton background="tomato">Sign in</NavButton>
               <NavButton>Sign up</NavButton>
               <NavButton>FAQ</NavButton>
@@ -201,7 +205,7 @@ export const App = () => {
                       )}
                       deleteTask={deleteTask}
                       deleteTodolist={deleteTodoList}
-                      handleFilterTasks={handleFilterTasks}
+                      changeTodolistFilter={changeTodolistFilter}
                       createTask={createTask}
                       changeTaskStatus={changeTaskStatus}
                       changeTodolistTitle={changeTodolistTitle}
