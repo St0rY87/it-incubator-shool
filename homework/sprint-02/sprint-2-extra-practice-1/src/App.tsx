@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import { Todolist } from "./Todolist";
 import { v1 } from "uuid";
@@ -74,6 +74,9 @@ export const App = () => {
     setTodolists(updatedTodolist);
   }
 
+  const [value, setValue] = useState<string>('')
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
     <div className="App">
       {todolists.map((todolist) => {
@@ -98,6 +101,12 @@ export const App = () => {
           />
         );
       })}
+      <div>
+        <input ref={inputRef}  type="text" /> 
+        {/* <button onClick={()=> setValue(inputRef.current.value)}>show text</button> */}
+         <button onClick={() => setValue(inputRef.current?.value || '')}>show text</button>
+        {value}
+      </div>
     </div>
   );
 };
