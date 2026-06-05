@@ -5,12 +5,18 @@ import {FlightTable} from "./FlightTable";
 import {AddNewItem} from "./components/AddNewItem";
 import styles from './Styles.module.css';
 
+type UpdateRouteProps = {
+    oldTitle: string;
+    callBack: () => void;
+};
+
 export const App = ()=> {
     //TODO: ТРИ задания от простого к сложному:
     //TODO: 1. Не работает кнопка удаления маршрута (routes) в App ничего править не нужно -ok
     //TODO: 2. Не работает ЧЕКБОКС -ошибки даже в APP! Вместо того чтобы передавать значение,
     // в функции перещелкивается противоположное! -ok
-    //TODO: 3. Обновление МАРШРУТА И ДАТЫ научились работать без функции в App, это нормально? Но в App ничего править не нужно
+    //TODO: 3. Обновление МАРШРУТА И ДАТЫ научились работать без функции в App, это нормально?
+    //  Но в App ничего править не нужно
     //TODO: 3. Вначале почини ДАТУ, а потом убедись, что и ОБНОВЛЕНИЕ МАРШРУТА "починилось" каким-то волшебным образом, но так ли это?
 
 
@@ -44,6 +50,9 @@ export const App = ()=> {
         }
     ]);
 
+    const [edit, setEdit] = useState(false);
+    const [newTitle, setNewTitle] = useState('');
+
     const addNewFTRoute = (flightTableID: string, from: string, to: string) => {
         const newRoute = {id: v1(), from, to, isBooked: true};
         setFlightTables(prevState =>
@@ -66,17 +75,12 @@ export const App = ()=> {
         ));
     };
 
-    //  const onRemoveRoute = ( routeId: string, flightTableID: string) => {
-    //     const updatedData = flightTables.map(ft => ft.flightTableID === flightTableID ? {...ft, routes: ft.routes.filter(route => route.id !== routeId) } : ft)
-    //     setFlightTables(updatedData)
-    // }
-
-    const toggleFTIsBooked = (flightTableID: string, routeID: string) => {
+    const toggleFTIsBooked = (flightTableID: string, routeID: string, isBooked: boolean) => {
         setFlightTables(flightTables.map(ft =>
             ft.flightTableID === flightTableID ? {
                     ...ft,
                     routes: ft.routes.map(route =>
-                        route.id === routeID ? {...route, isBooked: !route.isBooked} : route
+                        route.id === routeID ? {...route, isBooked} : route
                     )
                 }
                 : ft
