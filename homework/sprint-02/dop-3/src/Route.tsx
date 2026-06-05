@@ -35,7 +35,7 @@ export const Route = ({
     }
 
     const handleToggleFTIsBooked = () => {
-        alert('Во мне куча ошибок!')
+       toggleFTIsBooked(flightTableID, route.id)
     }
 
     return (
