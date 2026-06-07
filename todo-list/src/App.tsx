@@ -28,7 +28,7 @@ import {
   deleteTodolistAC,
   todolistsReducer,
 } from "./model/todolistsReducer";
-import { createTaskAC, tasksReducer } from "./model/tasksReducer";
+import { createTaskAC, deleteTaskAC, tasksReducer } from "./model/tasksReducer";
 
 export type TaskType = {
   id: string;
@@ -69,7 +69,6 @@ const initialStateTasks = {
 };
 
 export const App = () => {
-
   const [todolists, dispatchToTodolists] = useReducer(
     todolistsReducer,
     initialStateTodolists,
@@ -77,16 +76,18 @@ export const App = () => {
 
   const [tasks, dispatchToTasks] = useReducer(tasksReducer, initialStateTasks);
 
-
   // tasks
   const deleteTask = (
     todolistId: TodolistType["id"],
     taskId: TaskType["id"],
   ) => {
-    setTasks({
-      ...tasks,
-      [todolistId]: tasks[todolistId].filter((task) => task.id !== taskId),
-    });
+    // setTasks({
+    //   ...tasks,
+    //   [todolistId]: tasks[todolistId].filter((task) => task.id !== taskId),
+    // });
+    dispatchToTasks(
+      deleteTaskAC({ todolistId, taskId }),
+    );
   };
 
   // const createTask = (
@@ -98,12 +99,11 @@ export const App = () => {
   //   setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] });
   // };
 
-  
   const createTask = (
     todolistId: TodolistType["id"],
     title: TaskType["title"],
   ) => {
-    dispatchToTasks(createTaskAC({id: todolistId, title}))
+    dispatchToTasks(createTaskAC({ id: todolistId, title }));
   };
 
   const changeTaskStatus = (
@@ -130,8 +130,6 @@ export const App = () => {
       ),
     });
   };
-
-
 
   const getFilteredTasks = (tasks: TaskType[], filter: FilterValues) => {
     let filteredTasks = tasks;
