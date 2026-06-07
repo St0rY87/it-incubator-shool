@@ -44,3 +44,20 @@ test('property with todolistId should be deleted', () => {
   // or
   expect(endState['todolistId2']).toBeUndefined()
 })
+
+
+// test('correct task should be created at correct array', () => {
+//   const endState = tasksReducer(
+//     startState,
+//     createTaskAC({
+//       todolistId: 'todolistId2',
+//       title: 'juice',
+//     })
+//   )
+ 
+//   expect(endState.todolistId1.length).toBe(XXX)
+//   expect(endState.todolistId2.length).toBe(XXX)
+//   expect(endState.todolistId2[0].id).toBeDefined()
+//   expect(endState.todolistId2[0].title).toBe(XXX)
+//   expect(endState.todolistId2[0].isDone).toBe(XXX)
+// })
