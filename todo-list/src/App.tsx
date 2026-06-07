@@ -28,7 +28,7 @@ import {
   deleteTodolistAC,
   todolistsReducer,
 } from "./model/todolistsReducer";
-import { createTaskAC, deleteTaskAC, tasksReducer } from "./model/tasksReducer";
+import { changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC, tasksReducer } from "./model/tasksReducer";
 
 export type TaskType = {
   id: string;
@@ -85,9 +85,7 @@ export const App = () => {
     //   ...tasks,
     //   [todolistId]: tasks[todolistId].filter((task) => task.id !== taskId),
     // });
-    dispatchToTasks(
-      deleteTaskAC({ todolistId, taskId }),
-    );
+    dispatchToTasks(deleteTaskAC({ todolistId, taskId }));
   };
 
   // const createTask = (
@@ -111,24 +109,26 @@ export const App = () => {
     taskId: TaskType["id"],
     isDone: TaskType["isDone"],
   ) => {
-    setTasks({
-      ...tasks,
-      [todolistId]: tasks[todolistId].map((task) =>
-        task.id == taskId ? { ...task, isDone } : task,
-      ),
-    });
+    dispatchToTasks(changeTaskStatusAC({ todolistId, taskId, isDone }));
+    // setTasks({
+    //   ...tasks,
+    //   [todolistId]: tasks[todolistId].map((task) =>
+    //     task.id == taskId ? { ...task, isDone } : task,
+    //   ),
+    // });
   };
   const changeTaskTitle = (
     todolistId: TodolistType["id"],
     taskId: TaskType["id"],
     title: TaskType["title"],
   ) => {
-    setTasks({
-      ...tasks,
-      [todolistId]: tasks[todolistId].map((task) =>
-        task.id == taskId ? { ...task, title } : task,
-      ),
-    });
+    dispatchToTasks(changeTaskTitleAC({todolistId, taskId, title}))
+    // setTasks({
+    //   ...tasks,
+    //   [todolistId]: tasks[todolistId].map((task) =>
+    //     task.id == taskId ? { ...task, title } : task,
+    //   ),
+    // });
   };
 
   const getFilteredTasks = (tasks: TaskType[], filter: FilterValues) => {
