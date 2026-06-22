@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
-import type { FilterValues, TaskType, TodolistType } from "../App";
+import type { FilterValues, TaskType, TodolistType } from "../app/App";
 import { CreateItemForm } from "./createItemForm/CreateItemForm";
 import { EditableSpan } from "./editableSpan/EditableSpan";
 import {

@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import type { Tasks, TaskType, TodolistType } from "../App";
+import type { Tasks, TaskType, TodolistType } from "../app/App";
 import type { CreateTodolistAT, DeleteTodolistAT } from "./todolistsReducer";
 
 type ActionType =
@@ -18,7 +18,7 @@ export type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>;
 
 const initialState: Tasks = {};
 
-export const tasksReducer = (tasks: Tasks, action: ActionType): Tasks => {
+export const tasksReducer = (tasks: Tasks = initialState, action: ActionType): Tasks => {
   switch (action.type) {
     case "delete_todolist": {
       const copyTasksState = { ...tasks };
@@ -57,11 +57,11 @@ export const tasksReducer = (tasks: Tasks, action: ActionType): Tasks => {
     case "change_task_title": {
       const { todolistId, taskId, title } = action.payload;
       return {
-      ...tasks,
-      [todolistId]: tasks[todolistId].map((task) =>
-        task.id == taskId ? { ...task, title } : task,
-      ),
-    }
+        ...tasks,
+        [todolistId]: tasks[todolistId].map((task) =>
+          task.id == taskId ? { ...task, title } : task,
+        ),
+      };
     }
 
     default:
@@ -100,7 +100,7 @@ export const changeTaskStatusAC = (payload: {
 export const changeTaskTitleAC = (payload: {
   todolistId: TodolistType["id"];
   taskId: TaskType["id"];
-  title: TaskType["title"],
+  title: TaskType["title"];
 }) =>
   ({
     type: "change_task_title",
