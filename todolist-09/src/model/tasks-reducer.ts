@@ -1,13 +1,24 @@
 import { v1 } from "uuid";
 import type { Task, TasksState } from "../app/App";
-import type {
-  CreateTodolistAction,
-  DeleteTodolistAction,
+import {
+  createTodolistAC,
+  deleteTodolistAC,
 } from "./todolists-reducer";
+import { createReducer, nanoid } from "@reduxjs/toolkit";
 
 const initialState: TasksState = {};
 
-export const tasksReducer = (
+export const tasksReducer = createReducer(initialState, (builder) =>{
+  builder
+  .addCase(deleteTodolistAC, (state, action)=>{
+    delete state[action.payload.id];
+  })
+  .addCase(createTodolistAC, (state, action)=> {
+    state[action.payload.id] = [];
+  })
+}) 
+
+export const tasksReducer2 = (
   state: TasksState = initialState,
   action: Actions,
 ): TasksState => {
@@ -24,7 +35,7 @@ export const tasksReducer = (
       const newTask: Task = {
         title: action.payload.title,
         isDone: false,
-        id: v1(),
+        id: nanoid(),
       };
       return {
         ...state,
@@ -64,8 +75,6 @@ export const tasksReducer = (
       delete newState[action.payload.id];
       return newState;
     }
-    default:
-      return state;
   }
 };
 

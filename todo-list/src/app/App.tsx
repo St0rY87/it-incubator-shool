@@ -14,16 +14,19 @@ import {
 } from "@mui/material";
 import { orange, teal } from "@mui/material/colors";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { v1 } from "uuid";
+import { useAppDispatch } from "../common/hooks/useAppDispatch";
+import { useAppSelector } from "../common/hooks/useAppSelector";
 import { CreateItemForm } from "../components/createItemForm/CreateItemForm";
 import { Todolist } from "../components/Todolist";
+import { selectTasks } from "../model/tasks-selectors";
 import {
   changeTaskStatusAC,
   changeTaskTitleAC,
   createTaskAC,
   deleteTaskAC
 } from "../model/tasksReducer";
+import { selectTodolists } from "../model/todolists-selectors";
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
@@ -33,7 +36,6 @@ import {
 import { NavButton } from "../NavButton";
 import { containerSx } from "../Todolist.styles";
 import "./App.css";
-import type { RootState } from "./store";
 
 export type TaskType = {
   id: string;
@@ -73,11 +75,12 @@ const initialStateTasks = {
   ],
 };
 
-export const App = () => {
-  const todolists = useSelector<RootState, TodolistType[]>((state) => state.todolists);
-  const tasks = useSelector<RootState, Tasks>((state) => state.tasks);
 
-  const dispatch = useDispatch()
+export const App = () => {
+  const todolists = useAppSelector(selectTodolists);
+  const tasks = useAppSelector(selectTasks);
+
+  const dispatch = useAppDispatch()
 
   // tasks
   const deleteTask = (

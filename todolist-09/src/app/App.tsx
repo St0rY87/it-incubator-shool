@@ -28,6 +28,11 @@ import { TodolistItem } from "../TodolistItem";
 import { containerSx } from "../TodolistItem.styles";
 import "./App.css";
 import { RootState } from "./store";
+import { useAppSelector } from "../common/hooks/useAppSelector";
+import { useAppDispatch } from "../common/hooks/useAppDispatch";
+import { TaskState } from "vitest";
+import { selectTodolists } from "../model/todolists-selectors";
+import { selectTasks } from "../model/tasks-selectors";
 
 export type Todolist = {
   id: string;
@@ -48,11 +53,12 @@ export type TasksState = Record<string, Task[]>;
 
 type ThemeMode = "dark" | "light";
 
-export const App = () => {
-  const todolists = useSelector<RootState, Todolist[]>((state ) => state.todolists);
-  const tasks = useSelector<RootState, TasksState>((state) => state.tasks);
 
-  const dispatch = useDispatch();
+export const App = () => {
+  const todolists = useAppSelector(selectTodolists);
+  const tasks = useAppSelector(selectTasks);
+
+  const dispatch = useAppDispatch();
 
 
   const [themeMode, setThemeMode] = useState<ThemeMode>("light");
@@ -79,7 +85,7 @@ export const App = () => {
   };
 
   const deleteTodolist = (todolistId: string) => {
-    dispatch(deleteTodolistAC(todolistId));
+    dispatch(deleteTodolistAC({id:todolistId}));
   };
 
   const changeTodolistTitle = (todolistId: string, title: string) => {
