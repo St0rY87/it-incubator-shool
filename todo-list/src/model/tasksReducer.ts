@@ -1,6 +1,7 @@
 import { v1 } from "uuid";
 import type { Tasks, TaskType, TodolistType } from "../app/App";
-import type { CreateTodolistAT, DeleteTodolistAT } from "./todolistsReducer";
+import { createTodolistAC, deleteTodolistAC } from "./todolistsReducer";
+import { createReducer } from "@reduxjs/toolkit";
 
 type ActionType =
   | CreateTodolistAT
@@ -16,9 +17,24 @@ export type DeleteTaskAT = ReturnType<typeof deleteTaskAC>;
 export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>;
 export type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>;
 
+
+
 const initialState: Tasks = {};
 
-export const tasksReducer = (tasks: Tasks = initialState, action: ActionType): Tasks => {
+export const tasksReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(deleteTodolistAC, (state, action) => {
+      delete state[action.payload.id];
+    })
+    .addCase(createTodolistAC, (state, action) => {
+      state[action.payload.id] = [];
+    });
+});
+
+export const tasksReducer2 = (
+  tasks: Tasks = initialState,
+  action: ActionType,
+): Tasks => {
   switch (action.type) {
     case "delete_todolist": {
       const copyTasksState = { ...tasks };
