@@ -9,7 +9,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../common/hooks/useAppDispatch";
+import { useAppSelector } from "../common/hooks/useAppSelector";
 import { CreateItemForm } from "../CreateItemForm";
 import {
   changeTaskStatusAC,
@@ -17,22 +18,18 @@ import {
   createTaskAC,
   deleteTaskAC
 } from "../model/tasks-reducer";
+import { selectTasks } from "../model/tasks-selectors";
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   createTodolistAC,
   deleteTodolistAC
 } from "../model/todolists-reducer";
+import { selectTodolists } from "../model/todolists-selectors";
 import { NavButton } from "../NavButton";
 import { TodolistItem } from "../TodolistItem";
 import { containerSx } from "../TodolistItem.styles";
 import "./App.css";
-import { RootState } from "./store";
-import { useAppSelector } from "../common/hooks/useAppSelector";
-import { useAppDispatch } from "../common/hooks/useAppDispatch";
-import { TaskState } from "vitest";
-import { selectTodolists } from "../model/todolists-selectors";
-import { selectTasks } from "../model/tasks-selectors";
 
 export type Todolist = {
   id: string;

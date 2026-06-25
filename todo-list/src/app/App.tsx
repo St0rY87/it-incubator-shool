@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { orange, teal } from "@mui/material/colors";
 import { useState } from "react";
-import { v1 } from "uuid";
 import { useAppDispatch } from "../common/hooks/useAppDispatch";
 import { useAppSelector } from "../common/hooks/useAppSelector";
 import { CreateItemForm } from "../components/createItemForm/CreateItemForm";
@@ -43,9 +42,11 @@ export type TaskType = {
   isDone: boolean;
 };
 
-export type Tasks = {
-  [todolistId: string]: TaskType[];
-};
+// export type Tasks = {
+//   [todolistId: string]: TaskType[];
+// };
+
+export type Tasks = Record<string, TaskType[]>;
 
 export type FilterValues = "all" | "active" | "completed";
 
@@ -55,25 +56,8 @@ export type TodolistType = {
   filter: FilterValues;
 };
 
-const todolistId1 = v1();
-const todolistId2 = v1();
+type ThemeMode = "dark" | "light";
 
-const initialStateTodolists: TodolistType[] = [
-  { id: todolistId1, title: "What to learn", filter: "all" },
-  { id: todolistId2, title: "What to buy", filter: "all" },
-];
-
-const initialStateTasks = {
-  [todolistId1]: [
-    { id: v1(), title: "HTML&CSS", isDone: true },
-    { id: v1(), title: "JS", isDone: true },
-    { id: v1(), title: "ReactJS", isDone: false },
-  ],
-  [todolistId2]: [
-    { id: v1(), title: "Rest API", isDone: true },
-    { id: v1(), title: "GraphQL", isDone: false },
-  ],
-};
 
 
 export const App = () => {
@@ -132,7 +116,7 @@ export const App = () => {
     dispatch(changeTodolistFilterAC({ id: todolistId, filter }));
   };
   const deleteTodoList = (todolistId: TodolistType["id"]) => {
-    dispatch(deleteTodolistAC(todolistId));
+    dispatch(deleteTodolistAC({id: todolistId}));
   };
   const createTodolist = (title: TodolistType["title"]) => {
     dispatch(createTodolistAC(title));
@@ -144,13 +128,13 @@ export const App = () => {
     dispatch(changeTodolistTitleAC({ id: todolistId, title }));
   };
 
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState<ThemeMode>("light");
 
   const theme = createTheme({
     palette: {
       primary: teal,
       secondary: orange,
-      mode: isDark ? "dark" : "light",
+      mode: isDark === "light" ? "dark" : "light" ,
     },
   });
 
@@ -164,7 +148,7 @@ export const App = () => {
               <MenuIcon />
             </IconButton>
             <Box>
-              <Switch onChange={() => setIsDark(!isDark)} />
+              <Switch onChange={() => setIsDark(isDark === "light" ? "dark" : "light")} />
               <NavButton background="tomato">Sign in</NavButton>
               <NavButton>Sign up</NavButton>
               <NavButton>FAQ</NavButton>

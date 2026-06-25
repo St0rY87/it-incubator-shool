@@ -7,12 +7,10 @@ export const deleteTaskAC = createAction<{
   taskId: string;
 }>("tasks/deleteTask");
 
-export const createTaskAC = createAction(
-  "tasks/createTask",
-  (todolistId, title) => {
-    return { payload: todolistId, title, taskId: nanoid() }
-  }
-);
+export const createTaskAC = createAction<{
+  todolistId: string;
+  title: string;
+}>("tasks/createTask");
 
 export const changeTaskStatusAC = createAction<{
   todolistId: string;
@@ -37,25 +35,33 @@ export const tasksReducer = createReducer(initialState, (builder) => {
       state[action.payload.id] = [];
     })
     .addCase(deleteTaskAC, (state, action) => {
-        const index = state[action.payload.todolistId].findIndex(task => task.id === action.payload.taskId)
-        if (index !== -1) state[action.payload.todolistId].splice(index, 1);
+      const index = state[action.payload.todolistId].findIndex(
+        (task) => task.id === action.payload.taskId,
+      );
+      if (index !== -1) state[action.payload.todolistId].splice(index, 1);
     })
     .addCase(createTaskAC, (state, action) => {
+      console.log(action);
       state[action.payload.todolistId].push(
         {
         title: action.payload.title,
         isDone: false,
-        id: action.payload.taskId,
+        id: nanoid(),
       }
       )
     })
     .addCase(changeTaskStatusAC, (state, action) => {
-      const index = state[action.payload.todolistId].findIndex(task => task.id === action.payload.taskId)
-      if (index !== -1) state[action.payload.todolistId][index].isDone = action.payload.isDone
+      const index = state[action.payload.todolistId].findIndex(
+        (task) => task.id === action.payload.taskId,
+      );
+      if (index !== -1)
+        state[action.payload.todolistId][index].isDone = action.payload.isDone;
     })
     .addCase(changeTaskTitleAC, (state, action) => {
-      const index = state[action.payload.todolistId].findIndex((task) => task.id === action.payload.taskId);
-      if (index !== -1) state[action.payload.todolistId][index].title = action.payload.title;
-    })
-
+      const index = state[action.payload.todolistId].findIndex(
+        (task) => task.id === action.payload.taskId,
+      );
+      if (index !== -1)
+        state[action.payload.todolistId][index].title = action.payload.title;
+    });
 });

@@ -20,8 +20,6 @@ export const createTodolistAC = createAction(
   },
 );
 
-
-
 const initialState: Todolist[] = [];
 
 export const todolistsReducer = createReducer(initialState, (builder) => {
@@ -39,6 +37,7 @@ export const todolistsReducer = createReducer(initialState, (builder) => {
       if (todolist) todolist.filter = action.payload.filter;
     })
     .addCase(createTodolistAC, (state, action) => {
+      console.log(action)
       state.push({
         id: action.payload.id,
         title: action.payload.title,

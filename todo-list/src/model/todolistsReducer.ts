@@ -5,13 +5,6 @@ export const deleteTodolistAC = createAction<{ id: string }>(
   "todolists/deleteTodolist",
 );
 
-export const createTodolistAC = createAction(
-  "todolists/createTodolist",
-  (title: string) => {
-    return { payload: { title, id: nanoid() } };
-  },
-);
-
 export const changeTodolistTitleAC = createAction<{
   title: string;
   id: string;
@@ -21,6 +14,13 @@ export const changeTodolistFilterAC = createAction<{
   id: string;
   filter: FilterValues;
 }>("todolists/changeTodolistFilter");
+
+export const createTodolistAC = createAction(
+  "todolists/createTodolist",
+  (title: string) => {
+    return { payload: { title, id: nanoid() } };
+  },
+);
 
 const initialState: TodolistType[] = [];
 
