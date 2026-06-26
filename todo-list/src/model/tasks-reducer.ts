@@ -1,7 +1,7 @@
 import { v1 } from "uuid";
 import type { Tasks, TaskType, TodolistType } from "../app/App";
-import { createTodolistAC, deleteTodolistAC } from "./todolistsReducer";
-import { createReducer } from "@reduxjs/toolkit";
+import { createTodolistAC, deleteTodolistAC } from "./todolists-reducer";
+import { createAction, createReducer, nanoid } from "@reduxjs/toolkit";
 
 type ActionType =
   | CreateActionTaskAT
@@ -15,7 +15,27 @@ export type DeleteTaskAT = ReturnType<typeof deleteTaskAC>;
 export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>;
 export type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>;
 
+export const createTaskAC = createAction<{
+  todolistId: TodolistType["id"];
+  title: TaskType["title"];
+}>("tasks/createTask");
 
+export const deleteTaskAC = createAction<{
+  todolistId: TodolistType["id"];
+  taskId: TaskType["id"];
+}>("tasks/deleteTask");
+
+export const changeTaskStatusAC = createAction<{
+  todolistId: TodolistType["id"];
+  taskId: TaskType["id"];
+  isDone: TaskType["isDone"];
+}>("tasks/changeTaskStatus");
+
+export const changeTaskTitleAC = createAction<{
+  todolistId: TodolistType["id"];
+  taskId: TaskType["id"];
+  title: TaskType["title"];
+}>("tasks/changeTaskTitle");
 
 const initialState: Tasks = {};
 
@@ -26,6 +46,27 @@ export const tasksReducer = createReducer(initialState, (builder) => {
     })
     .addCase(createTodolistAC, (state, action) => {
       state[action.payload.id] = [];
+    })
+    .addCase(createTaskAC, (state, action) => {
+      const newTask = {
+        id: nanoid(),
+        title: action.payload.title,
+        isDone: false,
+      };
+      state[action.payload.todolistId].push(newTask);
+    })
+    .addCase(deleteTaskAC, (state, action) => {
+      const index = state[action.payload.todolistId].findIndex(
+        (task) => task.id === action.payload.taskId,
+      );
+      if (index !== -1) state[action.payload.todolistId].splice(index, 1);
+    })
+    .addCase(changeTaskStatusAC, (state, action) => {
+      const index = state[action.payload.todolistId].findIndex(
+        (task) => task.id === action.payload.taskId,
+      );
+      if (index !== -1)
+        state[action.payload.todolistId][index].isDone = action.payload.isDone;
     });
 });
 
@@ -82,43 +123,5 @@ export const tasksReducer = createReducer(initialState, (builder) => {
 //       return tasks;
 //   }
 // };
-
-export const createTaskAC = (payload: {
-  id: TodolistType["id"];
-  title: TaskType["title"];
-}) =>
-  ({
-    type: "create_task",
-    payload,
-  }) as const;
-
-export const deleteTaskAC = (payload: {
-  todolistId: TodolistType["id"];
-  taskId: TaskType["id"];
-}) =>
-  ({
-    type: "delete_task",
-    payload,
-  }) as const;
-
-export const changeTaskStatusAC = (payload: {
-  todolistId: TodolistType["id"];
-  taskId: TaskType["id"];
-  isDone: TaskType["isDone"];
-}) =>
-  ({
-    type: "change_task_status",
-    payload,
-  }) as const;
-
-export const changeTaskTitleAC = (payload: {
-  todolistId: TodolistType["id"];
-  taskId: TaskType["id"];
-  title: TaskType["title"];
-}) =>
-  ({
-    type: "change_task_title",
-    payload,
-  }) as const;
 
 // 4 action creators
