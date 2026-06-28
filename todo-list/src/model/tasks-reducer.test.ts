@@ -5,8 +5,8 @@ import {
   changeTaskTitleAC,
   createTaskAC,
   tasksReducer,
-} from "./tasksReducer";
-import { createTodolistAC, deleteTodolistAC } from "./todolistsReducer";
+} from "./tasks-reducer";
+import { createTodolistAC, deleteTodolistAC } from "./todolists-reducer";
 
 let startState: Tasks = {};
 
@@ -39,7 +39,10 @@ test("array should be created for new todolist", () => {
 });
 
 test("property with todolistId should be deleted", () => {
-  const endState = tasksReducer(startState, deleteTodolistAC({id:"todolistId2"}));
+  const endState = tasksReducer(
+    startState,
+    deleteTodolistAC({ id: "todolistId2" }),
+  );
 
   const keys = Object.keys(endState);
 
@@ -53,7 +56,7 @@ test("correct task should be created at correct array", () => {
   const endState = tasksReducer(
     startState,
     createTaskAC({
-      id: "todolistId2",
+      todolistId: "todolistId2",
       title: "juice",
     }),
   );

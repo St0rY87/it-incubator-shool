@@ -34,3 +34,12 @@ promise1
  .then((t) => t + "then1")
  .finally((t) => t + "finally")
  .then((t) => console.log(t)); 
+
+
+ const delay1 = (ms = 1000)=>{
+    return new Promise((resolve, rejected)=>{
+        setTimeout(()=>{
+            resolve('it works')
+        }, ms)
+    })
+ }

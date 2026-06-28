@@ -10,7 +10,7 @@ import {
   Paper,
   Switch,
   ThemeProvider,
-  Toolbar
+  Toolbar,
 } from "@mui/material";
 import { orange, teal } from "@mui/material/colors";
 import { useState } from "react";
@@ -23,15 +23,15 @@ import {
   changeTaskStatusAC,
   changeTaskTitleAC,
   createTaskAC,
-  deleteTaskAC
-} from "../model/tasksReducer";
+  deleteTaskAC,
+} from "../model/tasks-reducer";
 import { selectTodolists } from "../model/todolists-selectors";
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   createTodolistAC,
-  deleteTodolistAC
-} from "../model/todolistsReducer";
+  deleteTodolistAC,
+} from "../model/todolists-reducer";
 import { NavButton } from "../NavButton";
 import { containerSx } from "../Todolist.styles";
 import "./App.css";
@@ -58,13 +58,11 @@ export type TodolistType = {
 
 type ThemeMode = "dark" | "light";
 
-
-
 export const App = () => {
   const todolists = useAppSelector(selectTodolists);
   const tasks = useAppSelector(selectTasks);
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   // tasks
   const deleteTask = (
@@ -78,7 +76,7 @@ export const App = () => {
     todolistId: TodolistType["id"],
     title: TaskType["title"],
   ) => {
-    dispatch(createTaskAC({ id: todolistId, title }));
+    dispatch(createTaskAC({ todolistId, title }));
   };
 
   const changeTaskStatus = (
@@ -116,7 +114,7 @@ export const App = () => {
     dispatch(changeTodolistFilterAC({ id: todolistId, filter }));
   };
   const deleteTodoList = (todolistId: TodolistType["id"]) => {
-    dispatch(deleteTodolistAC({id: todolistId}));
+    dispatch(deleteTodolistAC({ id: todolistId }));
   };
   const createTodolist = (title: TodolistType["title"]) => {
     dispatch(createTodolistAC(title));
@@ -134,7 +132,7 @@ export const App = () => {
     palette: {
       primary: teal,
       secondary: orange,
-      mode: isDark === "light" ? "dark" : "light" ,
+      mode: isDark === "light" ? "dark" : "light",
     },
   });
 
@@ -148,7 +146,11 @@ export const App = () => {
               <MenuIcon />
             </IconButton>
             <Box>
-              <Switch onChange={() => setIsDark(isDark === "light" ? "dark" : "light")} />
+              <Switch
+                onChange={() =>
+                  setIsDark(isDark === "light" ? "dark" : "light")
+                }
+              />
               <NavButton background="tomato">Sign in</NavButton>
               <NavButton>Sign up</NavButton>
               <NavButton>FAQ</NavButton>
