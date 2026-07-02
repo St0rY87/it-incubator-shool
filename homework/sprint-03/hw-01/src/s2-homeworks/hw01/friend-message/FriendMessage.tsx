@@ -1,49 +1,39 @@
-import React from 'react'
-import s from './FriendMessage.module.css'
+import React from "react";
+import s from "./FriendMessage.module.css";
+import type { MessagePropsType as MessageType } from "../HW1";
 
-// создать тип вместо any и отобразить приходящие данные
-const FriendMessage = (props: any) => {
-    return (
-        <div
-            id={'hw1-friend-message-' + props.message.id}
-            className={s.friendMessage}
-        >
-            <div className={s.friendImageAndText}>
-                <img
-                    id={'hw1-friend-avatar-' + props.message.id}
-                    // создаёт студент
+type MessagePropsType = {
+  message: MessageType;
+};
 
-                    //
-                />
-                <div className={s.friendText}>
-                    <div
-                        id={'hw1-friend-name-' + props.message.id}
-                        className={s.friendName}
-                    >
-                        {/*создаёт студент*/}
+const FriendMessage = ({ message }: MessagePropsType) => {
+  const { id, user, message: messageContent } = message;
 
-                        {/**/}
-                    </div>
-                    <pre
-                        id={'hw1-friend-text-' + props.message.id}
-                        className={s.friendMessageText}
-                    >
-                        {/*создаёт студент*/}
+  return (
+    <div id={"hw1-friend-message-" + id} className={s.friendMessage}>
+      <div className={s.friendImageAndText}>
+        <img
+          id={"hw1-friend-avatar-" + id}
+          src={user.avatar}
+        />
 
-                        {/**/}
-                    </pre>
-                </div>
-            </div>
-            <div
-                id={'hw1-friend-time-' + props.message.id}
-                className={s.friendTime}
-            >
-                {/*создаёт студент*/}
-
-                {/**/}
-            </div>
+        <div className={s.friendText}>
+          <div id={"hw1-friend-name-" + id} className={s.friendName}>
+            {user.name}
+          </div>
+          <pre
+            id={"hw1-friend-text-" + id}
+            className={s.friendMessageText}
+          >
+            {messageContent.text}
+          </pre>
         </div>
-    )
-}
+      </div>
+      <div id={"hw1-friend-time-" + id} className={s.friendTime}>
+        {messageContent.time}
+      </div>
+    </div>
+  );
+};
 
-export default FriendMessage
+export default FriendMessage;
