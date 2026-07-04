@@ -33,6 +33,7 @@ export const App = () => {
   }, [dispatch, users.length, isAddNewUser]);
 
   const handleClick = useCallback((): void => {
+    // dispatch(createUser({id: v1(), name: generateRandomName()}));
     dispatch(createUser({id: v1(), name: generateRandomName()}));
 
     setIsAddNewUser(true);

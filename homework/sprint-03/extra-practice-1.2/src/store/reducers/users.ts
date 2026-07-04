@@ -11,8 +11,9 @@ type ActionsType = ReturnType<typeof createUser>;
 export const usersReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
   switch (action.type) {    
     case 'CREATE_USER':
+      console.log('create user')
       return {
-        users: [...state.users, action] as UserType[],
+        users: [...state.users, {id: action.payload.id, name: action.payload.name}] as UserType[],
       };
     default:
       return state;
