@@ -12,6 +12,8 @@ import { PageTwo } from "./components/pages/PageTwo";
 import { Error404 } from "./components/pages/Error404";
 
 export const App = () => {
+  const navLinkClassName = ({ isActive }: { isActive: boolean }) => 
+  isActive ? styles.activeNavLink : styles.navLink;
   return (
     <BrowserRouter>
       <div>
@@ -22,13 +24,19 @@ export const App = () => {
           <div className={styles.nav}>
             <ul>
               <li>
-                <NavLink to={"/pageOne"}>Page 1</NavLink>
+                <NavLink to={"/pageOne"}  className={navLinkClassName}>
+                  Page 1
+                </NavLink>
               </li>
               <li>
-                <NavLink to={"/pageTwo"}>Page 2</NavLink>
+                <NavLink to={"/pageTwo"} className={navLinkClassName}>
+                  Page 2
+                </NavLink>
               </li>
               <li>
-                <NavLink to={"/pageThree"}>Page 3</NavLink>
+                <NavLink to={"/pageThree"}  className={navLinkClassName}>
+                  Page 3
+                </NavLink>
               </li>
             </ul>
           </div>
