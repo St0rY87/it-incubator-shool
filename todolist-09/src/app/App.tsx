@@ -1,35 +1,35 @@
-import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid2";
-import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
+import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Switch from "@mui/material/Switch";
-import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
-import { useAppDispatch } from "../common/hooks/useAppDispatch";
-import { useAppSelector } from "../common/hooks/useAppSelector";
 import { CreateItemForm } from "../CreateItemForm";
 import {
   changeTaskStatusAC,
   changeTaskTitleAC,
   createTaskAC,
-  deleteTaskAC
+  deleteTaskAC,
 } from "../model/tasks-reducer";
-import { selectTasks } from "../model/tasks-selectors";
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   createTodolistAC,
-  deleteTodolistAC
 } from "../model/todolists-reducer";
-import { selectTodolists } from "../model/todolists-selectors";
-import { NavButton } from "../NavButton";
 import { TodolistItem } from "../TodolistItem";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid2";
+import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
+import CssBaseline from "@mui/material/CssBaseline";
 import { containerSx } from "../TodolistItem.styles";
-import "./App.css";
+import { NavButton } from "../NavButton";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./store";
+import { useAppSelector } from "../common/hooks/useAppSelector";
+import { useAppDispatch } from "../common/hooks/useAppDispatch";
+import { selectTodolists } from "../model/todolists-selectors";
 
 export type Todolist = {
   id: string;
@@ -45,19 +45,16 @@ export type Task = {
 
 export type FilterValues = "all" | "active" | "completed";
 
-export type TasksState = Record<string, Task[]>; //Record типизирует объекты
-
+export type TasksState = Record<string, Task[]>;
 
 type ThemeMode = "dark" | "light";
 
 
 export const App = () => {
   const todolists = useAppSelector(selectTodolists);
-  const tasks = useAppSelector(selectTasks);
+  const tasks = useAppSelector((state) => state.tasks);
 
-
-  const dispatch = useAppDispatch();
-
+  const dispatch = useAppDispatch()
 
   const [themeMode, setThemeMode] = useState<ThemeMode>("light");
 
@@ -83,7 +80,7 @@ export const App = () => {
   };
 
   const deleteTodolist = (todolistId: string) => {
-    dispatch(deleteTodolistAC({id:todolistId}));
+    dispatch(createTodolistAC(todolistId));
   };
 
   const changeTodolistTitle = (todolistId: string, title: string) => {
@@ -98,19 +95,11 @@ export const App = () => {
     dispatch(createTaskAC({ todolistId, title }));
   };
 
-  const changeTaskStatus = (
-    todolistId: string,
-    taskId: string,
-    isDone: boolean,
-  ) => {
+  const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
     dispatch(changeTaskStatusAC({ todolistId, taskId, isDone }));
   };
 
-  const changeTaskTitle = (
-    todolistId: string,
-    taskId: string,
-    title: string,
-  ) => {
+  const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
     dispatch(changeTaskTitleAC({ todolistId, taskId, title }));
   };
 
@@ -127,9 +116,7 @@ export const App = () => {
               <div>
                 <NavButton>Sign in</NavButton>
                 <NavButton>Sign up</NavButton>
-                <NavButton background={theme.palette.primary.dark}>
-                  Faq
-                </NavButton>
+                <NavButton background={theme.palette.primary.dark}>Faq</NavButton>
                 <Switch color={"default"} onChange={changeMode} />
               </div>
             </Container>
