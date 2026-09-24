@@ -1,14 +1,10 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
 
-
-// export const changeThemeModeAC = createAction<{themeMode: ThemeMode}>('app/changeThemeMode')
-
-
-export const changeThemeModeAC = createAction<{themeMode: ThemeMode}>('app/changeThemeMode')
-
 const initialState = {
   themeMode: 'light' as ThemeMode,
 }
+
+export const changeThemeModeAC = createAction<{themeMode: ThemeMode}>('app/changeThemeMode')
  
 export const appReducer = createReducer(initialState, builder => {
   builder
