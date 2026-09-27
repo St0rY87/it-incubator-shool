@@ -1,11 +1,11 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Todolist } from "@/app/App";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan";
-import { deleteTodolistAC, changeTodolistTitleAC } from "@/features/todolists/model/todolists-reducer";
 import { IconButton } from "@mui/material";
 
 import styles from "./TodolistTitle.module.css";
+import { EditableSpan } from "@/app/common/components/EditableSpan/EditableSpan";
+import { useAppDispatch } from "@/app/common/hooks/useAppDispatch";
+import { deleteTodolistAC, changeTodolistTitleAC } from "@/app/features/todolists/model/todolists-reducer";
 
 type Props = {
   todolist: Todolist;

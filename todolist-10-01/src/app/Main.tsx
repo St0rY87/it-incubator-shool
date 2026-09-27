@@ -1,8 +1,9 @@
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { CreateItemForm } from "@/CreateItemForm";
-import { Container, Grid2, Paper } from "@mui/material";
-import { Todolists } from "./Todolists";
-import { createTodolistAC } from "@/model/todolists-reducer";
+import { Container, Grid2 } from "@mui/material";
+import { CreateItemForm } from "./common/components/CreateItemForm/CreateItemForm";
+import { useAppDispatch } from "./common/hooks/useAppDispatch";
+import { createTodolistAC } from "./features/todolists/model/todolists-reducer";
+import { Todolists } from "./features/todolists/ui/Todolists/Todolists";
+
 
 export type FilterValues = "all" | "active" | "completed";
 

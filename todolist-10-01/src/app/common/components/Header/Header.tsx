@@ -1,20 +1,25 @@
+import MenuIcon from "@mui/icons-material/Menu"; 
+import { changeThemeModeAC } from "@/app/app-reducer";
 import { AppBar, Toolbar, Container, IconButton, Switch } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { NavButton } from "./NavButton";
-import { containerSx } from "./TodolistItem.styles";
-import { useAppDispatch } from "./common/hooks/useAppDispatch";
-import { changeThemeModeAC } from "./app/app-reducer";
-import { useAppSelector } from "./common/hooks/useAppSelector";
-import { selectThemeMode } from "./app/app-selectors";
-import { getTheme } from "./common/theme/theme";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { containerSx } from "../../styles/container.styles";
+import { getTheme } from "../../theme/theme";
+import { NavButton } from "../NavButton/NavButton";
+import { selectThemeMode } from "@/app/app-selectors";
+
 
 export const Header = () => {
-  const dispatch = useAppDispatch();
   const themeMode = useAppSelector(selectThemeMode);
+  const dispatch = useAppDispatch();
   const theme = getTheme(themeMode);
 
   const changeMode = () => {
-    dispatch(changeThemeModeAC({ themeMode: themeMode === "light" ? "dark" : "light" }));
+    dispatch(
+      changeThemeModeAC({
+        themeMode: themeMode === "light" ? "dark" : "light",
+      }),
+    );
   };
 
   return (
